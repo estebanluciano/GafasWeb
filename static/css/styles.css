@@ -1,0 +1,47 @@
+/* Paleta de colores azules */
+:root {
+    --bg-dark-blue: #0a2e4c; /* Azul marino oscuro */
+    --bg-medium-blue: #1d4a70; /* Azul medio */
+    --card-bg: #ffffff; /* Blanco para las tarjetas */
+    --text-light: #f8f9fa; /* Texto claro (casi blanco) */
+    --text-dark: #212529; /* Texto oscuro (casi negro) */
+    --primary-accent: #3d8bfd; /* Azul brillante para botones */
+}
+
+/* Estilos para asegurar que las columnas ocupen toda la altura */
+body, html {
+    height: 100%;
+}
+.full-height-col {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.scrollable-content {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* Aplicando la nueva paleta de colores */
+.left-column {
+    background-color: var(--bg-dark-blue);
+    color: var(--text-light);
+}
+.right-column {
+    background-color: var(--bg-medium-blue);
+    color: var(--text-light);
+}
+.card {
+    background-color: var(--card-bg);
+    color: var(--text-dark);
+    border: none;
+}
+.btn-primary {
+    background-color: var(--primary-accent);
+    border-color: var(--primary-accent);
+}
+.btn-primary:hover {
+    opacity: 0.9;
+    background-color: var(--primary-accent);
+    border-color: var(--primary-accent);
+}
