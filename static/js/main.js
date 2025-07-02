@@ -10,7 +10,99 @@ function isJSON(str) {
   }
 }
 
-function agregarTarjeta() {
+const socket = io();
+let alertasActivas = false;
+
+// Botón para activar sonido
+document.getElementById('activarSonido').addEventListener('click', () => {
+    alertasActivas = true;
+    document.getElementById('activarSonido').disabled = true;
+    document.getElementById('activarSonido').textContent = "✅ Alertas activadas";
+});
+
+// Reproduce sonido según tipo de alerta
+function reproducirSonido(tipo) {
+    if (!alertasActivas) return;
+    const sonidos = {
+        'LONG': document.getElementById('soundshort'),
+        'SHORT': document.getElementById('soundshort'),
+        'FAST SHORT': document.getElementById('soundlong')
+    };
+    const sonido = sonidos[tipo];
+    if (sonido) {
+        sonido.currentTime = 0;
+        sonido.play().catch(console.warn);
+    }
+}
+
+// Crea tarjeta en el DOM
+function crearTarjeta(data) {
+    const card = document.createElement('div');
+    card.className = 'col-md-6 col-lg-4';
+    switch (data.tipo) {
+        case 'LONG':
+            card.innerHTML = `
+                <div class="card border-success mb-3 shadow" style="max-width: 22rem;">
+                    <div class="card-header bg-success text-white fw-bold">
+                        ${data.tipo} — ${data.tick}
+                    </div>
+                    <div class="card-body text-dark">
+                        <h5 class="card-title mb-3">Variación: <span class="text-danger">${data.variacion}%</span></h5>
+                        <p class="card-text mb-2">
+                        <strong>Volumen:</strong> ${data.volumen}<br>
+                        <strong>Precio máx:</strong> ${data.precio_max}<br>
+                        <strong>Precio mín:</strong> ${data.precio_min}
+                        </p>
+                    </div>
+                </div>
+            `;
+            break;
+        case 'SHORT':
+            card.innerHTML = `
+                <div class="card border-danger mb-3 shadow" style="max-width: 22rem;">
+                    <div class="card-header bg-danger text-white fw-bold">
+                        ${data.tipo} — ${data.tick}
+                    </div>
+                    <div class="card-body text-dark">
+                        <h5 class="card-title mb-3">Variación: <span class="text-danger">${data.variacion}%</span></h5>
+                        <p class="card-text mb-2">
+                        <strong>Volumen:</strong> ${data.volumen}<br>
+                        <strong>Precio máx:</strong> ${data.precio_max}<br>
+                        <strong>Precio mín:</strong> ${data.precio_min}
+                        </p>
+                    </div>
+                </div>
+            `;
+            break;
+        case 'FAST SHORT':
+            card.innerHTML = `
+                <div class="card border-warning mb-3 shadow" style="max-width: 22rem;">
+                    <div class="card-header bg-warning text-white fw-bold">
+                        ${data.tipo} — ${data.tick}
+                    </div>
+                    <div class="card-body text-dark">
+                        <h5 class="card-title mb-3">Variación: <span class="text-danger">${data.variacion}%</span></h5>
+                        <p class="card-text mb-2">
+                        <strong>Volumen:</strong> ${data.volumen}<br>
+                        <strong>Precio máx:</strong> ${data.precio_max}<br>
+                        <strong>Precio mín:</strong> ${data.precio_min}
+                        </p>
+                    </div>
+                </div>
+            `;
+            break;
+        default: // Si el tipo no es reconocido, devolvemos el mensaje que traiga
+            console.warn('Tipo de alerta desconocido:', data.tipo);
+            card.innerHTML = `${data.mensaje || 'Alerta desconocida'}`;
+            return;
+    }
+    document.getElementById('alertas').appendChild(card);
+    reproducirSonido(data.tipo);
+}
+
+
+
+function agregarTarjetaSL() {
     const id = contador++;
     const tarjeta = document.createElement('div');
     tarjeta.className = 'col-md-12 mb-3'; // Usamos col-md-12 para que ocupe todo el ancho de la columna derecha
@@ -40,3 +132,15 @@ function agregarTarjeta() {
         }
     }, 500); // Simula un pequeño retraso de red
 }
+
+
+
+// Inserta texto simple (mensajes)
+socket.on('mensaje', (msg) => {
+    const div = document.createElement('div');
+    div.textContent = msg.texto;
+    document.getElementById('mensajes').appendChild(div);
+});
+
+// 🔔 Cuando llega una alerta de Python => crear tarjeta
+socket.on('alerta', crearTarjeta);
