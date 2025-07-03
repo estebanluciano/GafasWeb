@@ -11,19 +11,6 @@ def index():
     return render_template('index.html')
 
 # # Iniciar proceso que envía mensajes
-# def background_thread():
-#     for alerta in movement_alerts.obtener_datos():  # Este es un generador o bucle que emite alertas
-#         socketio.emit('nueva_alerta', alerta)
-
-# # Ejecutar hilo al iniciar la app
-# @socketio.on('connect')
-# def handle_connect():
-#     print('Cliente conectado')
-#     threading.Thread(target=background_thread).start()
-
-# if __name__ == '__main__':
-#     socketio.run(app, debug=True)
-
 def emitir_alertas():
     for data in obtener_datos():
         if isinstance(data, dict) and 'tipo' in data:

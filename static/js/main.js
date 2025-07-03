@@ -35,6 +35,19 @@ function reproducirSonido(tipo) {
     }
 }
 
+
+// Copia el tick al input de búsqueda
+function copiarTick(headerElement) {
+  const tick = headerElement.dataset.tick;
+  const input = document.getElementById("Ticker");
+  if (input) {
+    input.value = tick;
+    input.focus();
+    // input.select();
+  }
+}
+
+
 // Crea tarjeta en el DOM
 function crearTarjeta(data) {
     const card = document.createElement('div');
@@ -43,15 +56,16 @@ function crearTarjeta(data) {
         case 'LONG':
             card.innerHTML = `
                 <div class="card border-success mb-3 shadow" style="max-width: 22rem;">
-                    <div class="card-header bg-success text-white fw-bold">
-                        ${data.tipo} — ${data.tick}
+                    <div class="card-header bg-success text-white fw-bold" data-tick="${data.tick.slice(0, -4)}" onclick="copiarTick(this)">
+                        <span>${data.tipo} — ${data.tick}</span>
+                        <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-md-6').remove()"></button>
                     </div>
                     <div class="card-body text-dark">
                         <h5 class="card-title mb-3">Variación: <span class="text-danger">${data.variacion}%</span></h5>
                         <p class="card-text mb-2">
-                        <strong>Volumen:</strong> ${data.volumen}<br>
-                        <strong>Precio máx:</strong> ${data.precio_max}<br>
-                        <strong>Precio mín:</strong> ${data.precio_min}
+                            <strong>Volumen:</strong> ${data.volumen}<br>
+                            <strong>Precio máx:</strong> ${data.precio_max}<br>
+                            <strong>Precio mín:</strong> ${data.precio_min}
                         </p>
                     </div>
                 </div>
@@ -60,15 +74,16 @@ function crearTarjeta(data) {
         case 'SHORT':
             card.innerHTML = `
                 <div class="card border-danger mb-3 shadow" style="max-width: 22rem;">
-                    <div class="card-header bg-danger text-white fw-bold">
-                        ${data.tipo} — ${data.tick}
+                    <div class="card-header bg-danger text-white fw-bold" data-tick="${data.tick.slice(0, -4)}" onclick="copiarTick(this)">
+                        <span>${data.tipo} — ${data.tick}</span>
+                        <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-md-6').remove()"></button>
                     </div>
                     <div class="card-body text-dark">
                         <h5 class="card-title mb-3">Variación: <span class="text-danger">${data.variacion}%</span></h5>
                         <p class="card-text mb-2">
-                        <strong>Volumen:</strong> ${data.volumen}<br>
-                        <strong>Precio máx:</strong> ${data.precio_max}<br>
-                        <strong>Precio mín:</strong> ${data.precio_min}
+                            <strong>Volumen:</strong> ${data.volumen}<br>
+                            <strong>Precio máx:</strong> ${data.precio_max}<br>
+                            <strong>Precio mín:</strong> ${data.precio_min}
                         </p>
                     </div>
                 </div>
@@ -77,15 +92,16 @@ function crearTarjeta(data) {
         case 'FAST SHORT':
             card.innerHTML = `
                 <div class="card border-warning mb-3 shadow" style="max-width: 22rem;">
-                    <div class="card-header bg-warning text-white fw-bold">
-                        ${data.tipo} — ${data.tick}
+                    <div class="card-header bg-warning text-white fw-bold" data-tick="${data.tick.slice(0, -4)}" onclick="copiarTick(this)">
+                        <span>${data.tipo} — ${data.tick}</span>
+                        <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-md-6').remove()"></button>
                     </div>
                     <div class="card-body text-dark">
                         <h5 class="card-title mb-3">Variación: <span class="text-danger">${data.variacion}%</span></h5>
                         <p class="card-text mb-2">
-                        <strong>Volumen:</strong> ${data.volumen}<br>
-                        <strong>Precio máx:</strong> ${data.precio_max}<br>
-                        <strong>Precio mín:</strong> ${data.precio_min}
+                            <strong>Volumen:</strong> ${data.volumen}<br>
+                            <strong>Precio máx:</strong> ${data.precio_max}<br>
+                            <strong>Precio mín:</strong> ${data.precio_min}
                         </p>
                     </div>
                 </div>
@@ -93,6 +109,7 @@ function crearTarjeta(data) {
             break;
         default: // Si el tipo no es reconocido, devolvemos el mensaje que traiga
             console.warn('Tipo de alerta desconocido:', data.tipo);
+            console.warn(data);
             card.innerHTML = `${data.mensaje || 'Alerta desconocida'}`;
             return;
     }
@@ -132,6 +149,19 @@ function agregarTarjetaSL() {
         }
     }, 500); // Simula un pequeño retraso de red
 }
+
+// Tests Tarjetas
+document.getElementById('simularAlerta').addEventListener('click', () => {
+  const alertaFalsa = {
+    tipo: 'SHORT',
+    tick: 'FAKEUSDT',
+    variacion: 6.66,
+    volumen: '123.45M',
+    precio_max: '0.01234',
+    precio_min: '0.00987'
+  };
+  crearTarjeta(alertaFalsa);
+});
 
 
 

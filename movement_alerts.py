@@ -88,7 +88,7 @@ def porcentaje_klines(tick, klines, knumber):
                 info = infoticks(tick)
                 volumen = float(info['quoteVolume'])
                 data = {
-                    "tipo": "FAST SHORT !!",
+                    "tipo": "FAST SHORT",
                     "tick": tick,
                     "variacion": result,
                     "volumen": human_format(volumen),
