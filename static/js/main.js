@@ -60,14 +60,15 @@ function copiarTick(headerElement) {
 // Crea tarjeta en el DOM
 function crearTarjeta(data) {
     const card = document.createElement('div');
-    card.className = 'col-md-6 col-lg-4';
+    card.className = 'col-md col-lg-6 col-xl-4';
+    card.style = 'text-align: -webkit-center';
     switch (data.tipo) {
         case 'LONG':
             card.innerHTML = `
                 <div class="card border-success mb-3 shadow" style="max-width: 22rem;">
                     <div class="card-header bg-success text-white fw-bold" data-tick="${data.tick}" onclick="copiarTick(this)">
-                        <span>${data.tipo} — ${data.tick}</span>
-                        <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-md-6').remove()"></button>
+                        <span class="w-100">${data.tipo} — ${data.tick}</span>
+                        <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-xl-4').remove()"></button>
                     </div>
                     <div class="card-body text-dark">
                         <h5 class="card-title mb-3">Variación: <span class="text-danger">${data.variacion}%</span></h5>
@@ -84,8 +85,8 @@ function crearTarjeta(data) {
             card.innerHTML = `
                 <div class="card border-danger mb-3 shadow" style="max-width: 22rem;">
                     <div class="card-header bg-danger text-white fw-bold" data-tick="${data.tick}" onclick="copiarTick(this)">
-                        <span>${data.tipo} — ${data.tick}</span>
-                        <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-md-6').remove()"></button>
+                        <span class="w-100">${data.tipo} — ${data.tick}</span>
+                        <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-xl-4').remove()"></button>
                     </div>
                     <div class="card-body text-dark">
                         <h5 class="card-title mb-3">Variación: <span class="text-danger">${data.variacion}%</span></h5>
@@ -102,8 +103,8 @@ function crearTarjeta(data) {
             card.innerHTML = `
                 <div class="card border-warning mb-3 shadow" style="max-width: 22rem;">
                     <div class="card-header bg-warning text-white fw-bold" data-tick="${data.tick}" onclick="copiarTick(this)">
-                        <span>${data.tipo} — ${data.tick}</span>
-                        <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-md-6').remove()"></button>
+                        <span class="w-100">${data.tipo} — ${data.tick}</span>
+                        <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-xl-4').remove()"></button>
                     </div>
                     <div class="card-body text-dark">
                         <h5 class="card-title mb-3">Variación: <span class="text-danger">${data.variacion}%</span></h5>
@@ -176,9 +177,10 @@ document.getElementById('simularAlerta')?.addEventListener('click', () => {
 
 // Inserta texto simple (mensajes)
 socket.on('mensaje', (msg) => {
-    const div = document.createElement('div');
-    div.textContent = msg.texto;
-    document.getElementById('mensajes').appendChild(div);
+    console.log(msg);
+    // const div = document.createElement('div');
+    // div.textContent = msg.texto;
+    // document.getElementById('mensajes').appendChild(div);
 });
 
 // 🔔 Cuando llega una alerta de Python => crear tarjeta

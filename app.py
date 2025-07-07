@@ -16,7 +16,7 @@ def emitir_alertas():
         if isinstance(data, dict) and 'tipo' in data:
             socketio.emit('alerta', data)
         else:
-            socketio.emit(data)
+            socketio.emit('mensaje', data)
             print(f"Mensaje enviado: {data}")
 
         # elif isinstance(data, dict) and 'mensaje' in data:

@@ -45,3 +45,11 @@ body, html {
     background-color: var(--primary-accent);
     border-color: var(--primary-accent);
 }
+
+/* cards */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: normal;
+}

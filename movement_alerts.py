@@ -9,7 +9,7 @@ variacionfast = 2  # Variacion en los ultimos 2 minutos en porcentaje
 
 client = Client('','', tld='com')
 
-def buscarticks(yield_emisor):
+def buscarticks():
     ticks = []
     lista_ticks = client.futures_symbol_ticker() # traer todas las monedas de futuros de binace
     print('Numero de monedas encontradas #' + str(len(lista_ticks)))
@@ -102,17 +102,18 @@ def porcentaje_klines(tick, klines, knumber):
 # por si lo quiero hacer ejecutar despues
 def obtener_datos():
     executions = 0  # Contador de ejecuciones
-    def yield_emisor(alerta):
-        yield_emisor.yielded.append(alerta)
+    
     while True:
-        yield_emisor.yielded = []
+        logs = []
         executions += 1
-        yield_emisor('Ejecucion #' + str(executions))
-        ticks = buscarticks(yield_emisor)
-        for alerta in yield_emisor.yielded:
-            yield alerta
-        print('Escaneando monedas...')
-        yield('Escaneando monedas...')
+        logs.append('Ejecucion #' + str(executions))
+        
+        ticks = buscarticks()
+        logs.append('Escaneando monedas...')
+        
+        for log in logs:
+            yield log
+
         for tick in ticks:
             klines = get_klines(tick)
             knumber = len(klines)
@@ -122,7 +123,7 @@ def obtener_datos():
                 if values:
                     print(values)
                     yield(values)
+
         print('Esperando 30 segundos...')
-        yield('Esperando 30 segundos...')
         print('')
         time.sleep(30)
