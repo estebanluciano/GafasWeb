@@ -174,13 +174,10 @@ document.getElementById('simularAlerta')?.addEventListener('click', () => {
 });
 
 
-
-// Inserta texto simple (mensajes)
+// 🔔 Inserta texto simple (mensajes)
 socket.on('mensaje', (msg) => {
     console.log(msg);
-    // const div = document.createElement('div');
-    // div.textContent = msg.texto;
-    // document.getElementById('mensajes').appendChild(div);
+    document.getElementById('floatingTextarea2Disabled').textContent += msg + '\n';
 });
 
 // 🔔 Cuando llega una alerta de Python => crear tarjeta
