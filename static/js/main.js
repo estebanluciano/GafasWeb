@@ -153,11 +153,16 @@ function agregarTarjetaSL() {
             mensaje: "Dato cargado exitosamente",
             dato: Math.floor(Math.random() * 1000)
         };
+        const tickerSL = document.getElementById('Ticker').value;
+        const amountSL = document.getElementById('Amount').value; 
+        socket.emit('colocar_orden_SL', { ticker: tickerSL, amount: amountSL });
+
         const contentElement = document.getElementById(`contenido-${id}`);
         if (contentElement) {
             contentElement.textContent = mockData.mensaje + ' - Dato: ' + mockData.dato;
         }
     }, 500); // Simula un pequeño retraso de red
+    
 }
 
 // Tests Tarjetas
@@ -177,7 +182,10 @@ document.getElementById('simularAlerta')?.addEventListener('click', () => {
 // 🔔 Inserta texto simple (mensajes)
 socket.on('mensaje', (msg) => {
     console.log(msg);
-    document.getElementById('floatingTextarea2Disabled').textContent += msg + '\n';
+    const textareaConsola = document.getElementById('floatingTextarea2Disabled');
+    textareaConsola.textContent += msg + '\n';
+    // Esto fuerza el scroll al fondo:
+    textareaConsola.scrollTop = textareaConsola.scrollHeight;
 });
 
 // 🔔 Cuando llega una alerta de Python => crear tarjeta

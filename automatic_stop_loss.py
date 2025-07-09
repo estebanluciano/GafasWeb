@@ -46,8 +46,11 @@ def establecer_stop_loss(symbol, price):
 
 
 # Lógica del bot (ejemplo simple: compra y venta cada 60 segundos)
-while True:
+def colocar_orden_SL(tick, stop):
+    balance = session.get_wallet_balance(accountType="UNIFIED")
+    print(f"Saldo disponible: {float(balance['result']['list'][0]['totalAvailableBalance'])}")
     try:
+        print('INICIANDO PROCESO DE STOP LOSS AUTOMATICO')
         if estado:
             # Posiciones Abiertas
             posiciones = session.get_positions(category="linear", symbol=symbol)
@@ -74,11 +77,13 @@ while True:
                 capital = 0
 
         else:
-            tick = input('INGRESE EL TICK QUE DESEA OPERAR: ').upper()
+            # tick = input('INGRESE EL TICK QUE DESEA OPERAR: ').upper()
+            # dato tomado del propio def
             if tick != '':
                 tick = tick + 'USDT'
                 symbol = tick
-                stop = float(input('INGRESE EL VALOR MAXIMO EN USDT QUE DESEA PERDER: '))
+                # stop = float(input('INGRESE EL VALOR MAXIMO EN USDT QUE DESEA PERDER: '))
+                # mismo caso anterior dato tomado del def
                 if stop != '':
                     stop_loss = stop
                     # Posiciones Abiertas

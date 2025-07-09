@@ -121,9 +121,9 @@ def obtener_datos():
                 knumber = knumber - 1
                 values = porcentaje_klines(tick, klines, knumber)
                 if values:
-                    print(values)
                     yield(values)
 
         print('Esperando 30 segundos...')
+        yield('Esperando 30 segundos...')
         print('')
         time.sleep(30)
