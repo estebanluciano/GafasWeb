@@ -1,5 +1,21 @@
 ### Movement Alerts (Alertas de Movimiento)
 
+**Prerequisitos para usar la app**
+
+Instalar:
+
+   `pip install flask`
+   `pip install flask flask-socketio python-socketio`
+   `pip install python-binance`
+   `pip install pybit`
+
+para ejecutar en la terminal de visual studio:
+
+   `python.exe app.py`
+
+
+**Comencemos...**
+
 Este script fue desarrollado para detectar movimientos del mercado de criptomonedas en futuros de binance, con este script usted podra tener en vivo y en directo una alerta cuando un crypto activo este teniendo un movimiento inusal tanto al alza o la baja.
 
 **Como usar el script**

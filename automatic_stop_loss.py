@@ -4,15 +4,29 @@ from pybit.unified_trading import HTTP
 from decimal import Decimal, ROUND_DOWN, ROUND_FLOOR
 
 symbol = ''  # Puedes ajustar el símbolo según tus necesidades
-stop_loss = 10  # Valor en USDT
 estado = False
-capital = 100
+# capital = 100
+# stop_loss = 10  # Valor en USDT
 
 session = HTTP(
     testnet=False,
     api_key=config.api_key,
     api_secret=config.api_secret,
+    recv_window=10000  # Aumenta el margen de error permitido
 )
+
+# Intentar obtener el capital inicial y establecer un stop loss
+try:
+    wallet = session.get_wallet_balance(accountType="UNIFIED")
+    capital = float(wallet['result']['list'][0]['totalAvailableBalance'])
+    stop_loss = capital * 0.10  # 10% del capital inicial
+    print(f"Capital inicial obtenido: {capital} USDT")
+    time.sleep(3)
+except Exception as e:
+    print(f"Error al obtener el capital inicial: {e}, se usara por defecto 100 USDT y 10 USDT de stop loss!")
+    capital = 100
+    stop_loss = 10
+    time.sleep(1)
 
 
 def qty_step(symbol, price):

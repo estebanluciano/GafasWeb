@@ -39,7 +39,9 @@ function reproducirSonido(tipo) {
 // Copia el tick al input de búsqueda
 function copiarTick(headerElement) {
     const tick = headerElement.dataset.tick;
+    const balance = headerElement.dataset.balance;
     const input = document.getElementById("Ticker");
+    const balanceInput = document.getElementById("Capital");
     if (input) {
         input.value = tick.slice(0, -4); // Elimina el último "USDT" del ticker
         input.focus();
@@ -54,6 +56,9 @@ function copiarTick(headerElement) {
                 console.warn('No se pudo copiar al portapapeles:', err);
             });
     }
+    if (balanceInput) {
+        balanceInput.value = balance;
+    }
 }
 
 
@@ -66,7 +71,7 @@ function crearTarjeta(data) {
         case 'LONG':
             card.innerHTML = `
                 <div class="card border-success mb-3 shadow" style="max-width: 22rem;">
-                    <div class="card-header bg-success text-white fw-bold" data-tick="${data.tick}" onclick="copiarTick(this)">
+                    <div class="card-header bg-success text-white fw-bold" data-tick="${data.tick}" data-balance="${data.balance}" onclick="copiarTick(this)">
                         <span class="w-100">${data.tipo} — ${data.tick}</span>
                         <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-xl-4').remove()"></button>
                     </div>
@@ -84,7 +89,7 @@ function crearTarjeta(data) {
         case 'SHORT':
             card.innerHTML = `
                 <div class="card border-danger mb-3 shadow" style="max-width: 22rem;">
-                    <div class="card-header bg-danger text-white fw-bold" data-tick="${data.tick}" onclick="copiarTick(this)">
+                    <div class="card-header bg-danger text-white fw-bold" data-tick="${data.tick}" data-balance="${data.balance}" onclick="copiarTick(this)">
                         <span class="w-100">${data.tipo} — ${data.tick}</span>
                         <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-xl-4').remove()"></button>
                     </div>
@@ -102,7 +107,7 @@ function crearTarjeta(data) {
         case 'FAST SHORT':
             card.innerHTML = `
                 <div class="card border-warning mb-3 shadow" style="max-width: 22rem;">
-                    <div class="card-header bg-warning text-white fw-bold" data-tick="${data.tick}" onclick="copiarTick(this)">
+                    <div class="card-header bg-warning text-white fw-bold" data-tick="${data.tick}" data-balance="${data.balance}" onclick="copiarTick(this)">
                         <span class="w-100">${data.tipo} — ${data.tick}</span>
                         <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-xl-4').remove()"></button>
                     </div>
@@ -173,7 +178,8 @@ document.getElementById('simularAlerta')?.addEventListener('click', () => {
     variacion: 6.66,
     volumen: '123.45M',
     precio_max: '0.01234',
-    precio_min: '0.00987'
+    precio_min: '0.00987',
+    balance: 'Millon 🤑',
   };
   crearTarjeta(alertaFalsa);
 });

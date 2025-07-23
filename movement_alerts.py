@@ -1,6 +1,8 @@
 from binance.client import Client
-from flask import Flask, render_template, render_template_string
+# from flask import Flask, render_template, render_template_string
 import time
+from pybit.unified_trading import HTTP
+from automatic_stop_loss import session
 
 variacion = 5  # Variacion en los ultimos 30 minutos en porcentaje
 variacion_100 = 7  # Variacion en los ultimos 30 minutos en porcentaje si tiene menos de 100k de volumen
@@ -42,6 +44,16 @@ def porcentaje_klines(tick, klines, knumber):
     inicial = float(klines[0][4])
     final = float(klines[knumber][4])
 
+    # obtener el capital inicial
+    def obtener_capital():
+        try:
+            wallet = session.get_wallet_balance(accountType="UNIFIED")
+            capital = float(wallet['result']['list'][0]['totalAvailableBalance'])
+            return capital
+        except Exception as e:
+            print(f"Error al obtener el capital inicial: {e}, se usara por defecto 100 USDT!")
+            return 100
+
     # LONG
     if inicial > final:
         result = round(((inicial - final) / inicial) * 100, 2)
@@ -55,7 +67,8 @@ def porcentaje_klines(tick, klines, knumber):
                     "variacion": result,
                     "volumen": human_format(volumen),
                     "precio_max": info['highPrice'],
-                    "precio_min": info['lowPrice']
+                    "precio_min": info['lowPrice'],
+                    "balance": obtener_capital()
                 }
                 print(f"Alerta LONG: {data}")
                 return data
@@ -73,7 +86,8 @@ def porcentaje_klines(tick, klines, knumber):
                     "variacion": result,
                     "volumen": human_format(volumen),
                     "precio_max": info['highPrice'],
-                    "precio_min": info['lowPrice']
+                    "precio_min": info['lowPrice'],
+                    "balance": obtener_capital()
                 }
                 print(f"Alerta SHORT: {data}")
                 return data
@@ -93,7 +107,8 @@ def porcentaje_klines(tick, klines, knumber):
                     "variacion": result,
                     "volumen": human_format(volumen),
                     "precio_max": info['highPrice'],
-                    "precio_min": info['lowPrice']
+                    "precio_min": info['lowPrice'],
+                    "balance": obtener_capital()
                 }
                 print(f"Alerta FAST SHORT: {data}")
                 return data
