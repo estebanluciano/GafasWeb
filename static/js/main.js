@@ -40,11 +40,14 @@ function reproducirSonido(tipo) {
 function copiarTick(headerElement) {
     const tick = headerElement.dataset.tick;
     const balance = headerElement.dataset.balance;
-    const input = document.getElementById("Ticker");
+    const lastPrice = headerElement.dataset.lastprice;
+    const tickerInput = document.getElementById("Ticker");
     const balanceInput = document.getElementById("Capital");
-    if (input) {
-        input.value = tick.slice(0, -4); // Elimina el último "USDT" del ticker
-        input.focus();
+    const lastPriceInput = document.getElementById("LastPrice");
+    const valueInput = document.getElementById("Value");
+    if (tickerInput) {
+        tickerInput.value = tick.slice(0, -4); // Elimina el último "USDT" del ticker
+        tickerInput.focus();
         // input.select();
 
         // Copiar al portapapeles
@@ -59,6 +62,14 @@ function copiarTick(headerElement) {
     if (balanceInput) {
         balanceInput.value = balance;
     }
+    if (valueInput) {
+        // Del balance, calculamos cantidad de monedas de entrada del 1% a 10x
+        valueInput.value = Math.floor(parseFloat(balance) * 0.10 / lastPrice);
+        valueInput.focus();
+    }
+    if (lastPriceInput) {
+        lastPriceInput.value = lastPrice;   
+    }
 }
 
 
@@ -71,7 +82,7 @@ function crearTarjeta(data) {
         case 'LONG':
             card.innerHTML = `
                 <div class="card border-success mb-3 shadow" style="max-width: 22rem;">
-                    <div class="card-header bg-success text-white fw-bold" data-tick="${data.tick}" data-balance="${data.balance}" onclick="copiarTick(this)">
+                    <div class="card-header bg-success text-white fw-bold" data-tick="${data.tick}" data-balance="${data.balance}" data-lastprice="${data.lastPrice}" onclick="copiarTick(this)">
                         <span class="w-100">${data.tipo} — ${data.tick}</span>
                         <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-xl-4').remove()"></button>
                     </div>
@@ -89,7 +100,7 @@ function crearTarjeta(data) {
         case 'SHORT':
             card.innerHTML = `
                 <div class="card border-danger mb-3 shadow" style="max-width: 22rem;">
-                    <div class="card-header bg-danger text-white fw-bold" data-tick="${data.tick}" data-balance="${data.balance}" onclick="copiarTick(this)">
+                    <div class="card-header bg-danger text-white fw-bold" data-tick="${data.tick}" data-balance="${data.balance}" data-lastprice="${data.lastPrice}" onclick="copiarTick(this)">
                         <span class="w-100">${data.tipo} — ${data.tick}</span>
                         <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-xl-4').remove()"></button>
                     </div>
@@ -107,7 +118,7 @@ function crearTarjeta(data) {
         case 'FAST SHORT':
             card.innerHTML = `
                 <div class="card border-warning mb-3 shadow" style="max-width: 22rem;">
-                    <div class="card-header bg-warning text-white fw-bold" data-tick="${data.tick}" data-balance="${data.balance}" onclick="copiarTick(this)">
+                    <div class="card-header bg-warning text-white fw-bold" data-tick="${data.tick}" data-balance="${data.balance}" data-lastprice="${data.lastPrice}" onclick="copiarTick(this)">
                         <span class="w-100">${data.tipo} — ${data.tick}</span>
                         <button type="button" class="btn-close btn-close btn-sm float-end" aria-label="Cerrar" onclick="event.stopPropagation(); this.closest('.col-xl-4').remove()"></button>
                     </div>
@@ -132,6 +143,100 @@ function crearTarjeta(data) {
     reproducirSonido(data.tipo);
 }
 
+
+// Función para agregar números dobles a un arreglo
+function agregarDobles(numeroInicial) {
+    const arreglo = [numeroInicial];
+    for (let i = 0; i < 5; i++) {
+        const ultimoNumero = arreglo[arreglo.length - 1];
+        const doble = ultimoNumero * 2;
+        arreglo.push(doble);
+    }
+    return arreglo;
+}
+
+const miArreglo = agregarDobles(5);
+
+
+// Función para agregar tarjeta de recompras
+// Esta función se llama al hacer clic en el botón "Calcular"
+function agregarTarjetaRecompras() {
+    const tickerInput = document.getElementById("Ticker");
+    const lastPriceInput = document.getElementById("LastPrice");
+    const valueInput = document.getElementById("Value");
+    let dobles = agregarDobles(parseInt(valueInput.value));
+    const tarjeta = document.createElement('div');
+    tarjeta.className = 'col-md-12 mb-3 w-75'; // Usamos col-md-12 para que ocupe todo el ancho de la columna derecha
+    tarjeta.innerHTML = `
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Coin ${tickerInput.value}</h5>
+                    <button class="btn btn-sm btn-outline-danger" onclick="this.closest('.col-md-12').remove()">Eliminar</button>
+                </div>
+                <ul class="px-5 list-group list-group-flush">
+                    <li class="list-group-item d-flex align-items-center">
+                        <div class="text-start">Recom 6</div>
+                        <div class="flex-fill text-center">
+                            <strong id="Recom6" class="text-danger">${dobles[5]}</strong>
+                        </div>
+                        <div id="Recom6usd" class="text-end">u$d ${(dobles[5] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                    </li>
+                    
+                    <li class="list-group-item d-flex align-items-center">
+                        <div class="text-start">Recom 5</div>
+                        <div class="flex-fill text-center">
+                            <strong id="Recom5" class="text-warning">${dobles[4]}</strong>
+                        </div>
+                        <div id="Recom5usd" class="text-end">u$d ${(dobles[4] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                    </li>
+
+                    <li class="list-group-item d-flex align-items-center">
+                        <div class="text-start">Recom 4</div>
+                        <div class="flex-fill text-center">
+                            <strong id="Recom4" class="text-warning">${dobles[3]}</strong>
+                        </div>
+                        <div id="Recom4usd" class="text-end">u$d ${(dobles[3] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                    </li>
+
+                    <li class="list-group-item d-flex align-items-center">
+                        <div class="text-start">Recom 3</div>
+                        <div class="flex-fill text-center">
+                            <strong id="Recom3">${dobles[2]}</strong>
+                        </div>
+                        <div id="Recom3usd" class="text-end">u$d ${(dobles[2] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                    </li>
+
+                    <li class="list-group-item d-flex align-items-center">
+                        <div class="text-start">Recom 2</div>
+                        <div class="flex-fill text-center">
+                            <strong id="Recom2">${dobles[1]}</strong>
+                        </div>
+                        <div id="Recom2usd" class="text-end">u$d ${(dobles[1] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                    </li>
+
+                    <li class="list-group-item d-flex align-items-center">
+                        <div class="text-start">Recom 1</div>
+                        <div class="flex-fill text-center">
+                            <strong id="Recom1">${dobles[0]}</strong>
+                        </div>
+                        <div id="Recom1usd" class="text-end">u$d ${(dobles[0] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                    </li>
+                    
+                    <li class="list-group-item d-flex align-items-center" style="background-color: gainsboro;">
+                        <div class="text-start">Entrada</div>
+                        <div class="flex-fill text-center">
+                            <strong id="Recom0">${dobles[0]}</strong>
+                        </div>
+                        <div id="Recom0usd" class="text-end">u$d ${(dobles[0] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        `;
+    document.getElementById('tarjetas').appendChild(tarjeta);
+    
+}
 
 
 function agregarTarjetaSL() {
@@ -179,7 +284,8 @@ document.getElementById('simularAlerta')?.addEventListener('click', () => {
     volumen: '123.45M',
     precio_max: '0.01234',
     precio_min: '0.00987',
-    balance: 'Millon 🤑',
+    balance: '100',
+    lastPrice: '0.01111'
   };
   crearTarjeta(alertaFalsa);
 });

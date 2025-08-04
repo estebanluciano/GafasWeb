@@ -45,21 +45,59 @@
             <!-- Columna Derecha: Dashboard Dinámico -->
             <div class="col-md-6 p-4 full-height-col right-column">
                 <div class="scrollable-content mb-4" style="overflow: visible;">
-                    <h2 class="mb-4 fw-light">Stop Loss Dinámico</h2>
+                    <h2 class="mb-4 fw-light">Calculadora de Recompras</h2>
                     <!-- Botón para agregar nuevas tarjetas -->
                     <div class="input-group mb-3">
                          <span class="input-group-text">Coin 🪙</span>
                         <input type="text" id="Ticker" class="form-control" placeholder="BTC" aria-label="Coin" style="max-width: 7rem; font-weight: bold;">
-                        <span class="input-group-text">Max Loss💲</span>
-                        <input type="text" id="Amount" class="form-control" placeholder="..." aria-label="Amount" value="10" style="max-width: 7rem; font-weight: bold;">
-                        <button onclick="agregarTarjetaSL()" class="btn shadow-sm" style="--bs-btn-padding-x: 1.75rem;background-color: #8c68cd;">Agregar SL</button>
+                        <span class="input-group-text">Price 💴</span>
+                        <input type="text" id="LastPrice" class="form-control" placeholder=".." aria-label="Last Price" value="" style="max-width: 7rem; font-weight: bold;">
+                        <span class="input-group-text">Quantity 🪙</span>
+                        <input type="text" id="Value" class="form-control" placeholder=".." aria-label="Value" value="10" style="max-width: 7rem; font-weight: bold;">
+                        <button onclick="agregarTarjetaRecompras()" class="btn shadow-sm" style="--bs-btn-padding-x: 1.75rem;background-color: #8c68cd;">Calcular</button>
                     </div>
-                    <div class="input-group mb-5">
-                        <span class="input-group-text">Capital Inicial💲</span>
+                    <div class="input-group mb-4">
+                        <span class="input-group-text">Capital Margin💲</span>
                         <input type="text" id="Capital" class="form-control" placeholder="" aria-label="Capital" disabled="disabled" style="max-width: 7rem; font-weight: bold;">
                     </div>
+                    <hr>
+                    
                     <!-- Contenedor para las tarjetas dinámicas -->
-                    <div id="tarjetas" class="row"></div>
+                    <div id="tarjetas" class="row justify-content-center">
+
+                        <!-- <div class="col-md-12 mb-3 w-75">
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="card-title mb-0">Fake</h5>
+                                        <button class="btn btn-sm btn-outline-danger" onclick="this.closest('.col-md-12').remove()">Eliminar</button>
+                                    </div>
+                                    <ul class="px-4 list-group list-group-flush">
+                                        <li class="list-group-item d-flex align-items-center">
+                                            <div class="text-start">Recom 6</div>
+                                            <div class="flex-fill text-center">
+                                                <strong id="Recom6" class="text-danger">320</strong>
+                                            </div>
+                                            <div id="Recom6usd" class="text-end">u$d 96</div>
+                                        </li>
+                                        <li class="list-group-item">Recom 5 - <strong>160</strong> - Margin u$d 48</li>
+                                        <li class="list-group-item">Recom 4 - <strong>80</strong> - Margin u$d 24</li>
+                                        <li class="list-group-item">Recom 3 - <strong>40</strong> - Margin u$d 12</li>
+                                        <li class="list-group-item">Recom 2 - <strong>20</strong> - Margin u$d 6</li>
+                                        <li class="list-group-item">Recom 1 - <strong>10</strong> - Margin u$d 3</li>
+                                        <li class="list-group-item d-flex align-items-center" style="background-color: gainsboro;">
+                                            <div class="text-start">Entrada</div>
+                                            <div class="flex-fill text-center">
+                                                <strong id="Recom0">10</strong>
+                                            </div>
+                                            <div id="Recom0usd" class="text-end">u$d 3</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div> -->
+
+                    </div>
                 </div>
 
                 <div class="form-floating mb-3">

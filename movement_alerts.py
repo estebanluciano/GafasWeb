@@ -48,7 +48,7 @@ def porcentaje_klines(tick, klines, knumber):
     def obtener_capital():
         try:
             wallet = session.get_wallet_balance(accountType="UNIFIED")
-            capital = float(wallet['result']['list'][0]['totalAvailableBalance'])
+            capital = float(wallet['result']['list'][0]['totalMarginBalance'])
             return capital
         except Exception as e:
             print(f"Error al obtener el capital inicial: {e}, se usara por defecto 100 USDT!")
@@ -68,7 +68,8 @@ def porcentaje_klines(tick, klines, knumber):
                     "volumen": human_format(volumen),
                     "precio_max": info['highPrice'],
                     "precio_min": info['lowPrice'],
-                    "balance": obtener_capital()
+                    "balance": obtener_capital(),
+                    "lastPrice": info['lastPrice']
                 }
                 print(f"Alerta LONG: {data}")
                 return data
@@ -87,7 +88,8 @@ def porcentaje_klines(tick, klines, knumber):
                     "volumen": human_format(volumen),
                     "precio_max": info['highPrice'],
                     "precio_min": info['lowPrice'],
-                    "balance": obtener_capital()
+                    "balance": obtener_capital(),
+                    "lastPrice": info['lastPrice']
                 }
                 print(f"Alerta SHORT: {data}")
                 return data
@@ -108,7 +110,8 @@ def porcentaje_klines(tick, klines, knumber):
                     "volumen": human_format(volumen),
                     "precio_max": info['highPrice'],
                     "precio_min": info['lowPrice'],
-                    "balance": obtener_capital()
+                    "balance": obtener_capital(),
+                    "lastPrice": info['lastPrice']
                 }
                 print(f"Alerta FAST SHORT: {data}")
                 return data

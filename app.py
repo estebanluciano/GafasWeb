@@ -2,7 +2,8 @@ from flask import Flask, render_template
 from flask_socketio import SocketIO
 from movement_alerts import obtener_datos
 from automatic_stop_loss import colocar_orden_SL
-import threading
+import os
+# import threading
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -38,5 +39,12 @@ def procesar_orden(data):
 
 
 if __name__ == '__main__':
-    threading.Thread(target=emitir_alertas).start()
+    # Sólo arrancar el thread en el proceso que hace el trabajo real
+    # if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+    #     threading.Thread(target=emitir_alertas, daemon=True).start()
+    # socketio.run(app, debug=True)
+
+    # En lugar de crear tu propio threading.Thread, usá el helper de SocketIO para tareas en background, que se integra mejor con el loop:
+    if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+        socketio.start_background_task(emitir_alertas)
     socketio.run(app, debug=True)
