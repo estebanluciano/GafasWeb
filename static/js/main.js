@@ -158,6 +158,17 @@ function agregarDobles(numeroInicial) {
 const miArreglo = agregarDobles(5);
 
 
+// Función para cambiar el color de fondo de los elementos de la lista
+// Esta función se llama al hacer clic en un elemento de la lista
+function backgroundColorChange(element) {
+    let elems = element.parentNode.querySelectorAll('.list-group-item');
+    for (let i = 0; i < elems.length; i++) {
+        (elems[i].style.backgroundColor === 'lightslategray')? elems[i].style.backgroundColor = '': null;
+    };
+    (element.style.backgroundColor === 'gainsboro')? null: element.style.backgroundColor = 'lightslategray';
+}
+
+
 // Función para agregar tarjeta de recompras
 // Esta función se llama al hacer clic en el botón "Calcular"
 function agregarTarjetaRecompras() {
@@ -171,11 +182,11 @@ function agregarTarjetaRecompras() {
         <div class="card shadow-sm">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="card-title mb-0">Coin ${tickerInput.value}</h5>
+                    <h5 class="card-title mb-0">Coin <strong>${tickerInput.value}</strong></h5>
                     <button class="btn btn-sm btn-outline-danger" onclick="this.closest('.col-md-12').remove()">Eliminar</button>
                 </div>
                 <ul class="px-5 list-group list-group-flush">
-                    <li class="list-group-item d-flex align-items-center">
+                    <li class="list-group-item d-flex align-items-center" onclick="backgroundColorChange(this)">
                         <div class="text-start">Recom 6</div>
                         <div class="flex-fill text-center">
                             <strong id="Recom6" class="text-danger">${dobles[5]}</strong>
@@ -183,7 +194,7 @@ function agregarTarjetaRecompras() {
                         <div id="Recom6usd" class="text-end">u$d ${(dobles[5] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
                     </li>
                     
-                    <li class="list-group-item d-flex align-items-center">
+                    <li class="list-group-item d-flex align-items-center" onclick="backgroundColorChange(this)">
                         <div class="text-start">Recom 5</div>
                         <div class="flex-fill text-center">
                             <strong id="Recom5" class="text-warning">${dobles[4]}</strong>
@@ -191,7 +202,7 @@ function agregarTarjetaRecompras() {
                         <div id="Recom5usd" class="text-end">u$d ${(dobles[4] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
                     </li>
 
-                    <li class="list-group-item d-flex align-items-center">
+                    <li class="list-group-item d-flex align-items-center" onclick="backgroundColorChange(this)">
                         <div class="text-start">Recom 4</div>
                         <div class="flex-fill text-center">
                             <strong id="Recom4" class="text-warning">${dobles[3]}</strong>
@@ -199,7 +210,7 @@ function agregarTarjetaRecompras() {
                         <div id="Recom4usd" class="text-end">u$d ${(dobles[3] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
                     </li>
 
-                    <li class="list-group-item d-flex align-items-center">
+                    <li class="list-group-item d-flex align-items-center" onclick="backgroundColorChange(this)">
                         <div class="text-start">Recom 3</div>
                         <div class="flex-fill text-center">
                             <strong id="Recom3">${dobles[2]}</strong>
@@ -207,7 +218,7 @@ function agregarTarjetaRecompras() {
                         <div id="Recom3usd" class="text-end">u$d ${(dobles[2] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
                     </li>
 
-                    <li class="list-group-item d-flex align-items-center">
+                    <li class="list-group-item d-flex align-items-center" onclick="backgroundColorChange(this)">
                         <div class="text-start">Recom 2</div>
                         <div class="flex-fill text-center">
                             <strong id="Recom2">${dobles[1]}</strong>
@@ -215,7 +226,7 @@ function agregarTarjetaRecompras() {
                         <div id="Recom2usd" class="text-end">u$d ${(dobles[1] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
                     </li>
 
-                    <li class="list-group-item d-flex align-items-center">
+                    <li class="list-group-item d-flex align-items-center" onclick="backgroundColorChange(this)">
                         <div class="text-start">Recom 1</div>
                         <div class="flex-fill text-center">
                             <strong id="Recom1">${dobles[0]}</strong>
@@ -223,7 +234,7 @@ function agregarTarjetaRecompras() {
                         <div id="Recom1usd" class="text-end">u$d ${(dobles[0] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
                     </li>
                     
-                    <li class="list-group-item d-flex align-items-center" style="background-color: gainsboro;">
+                    <li class="list-group-item d-flex align-items-center bg-entry" onclick="backgroundColorChange(this)">
                         <div class="text-start">Entrada</div>
                         <div class="flex-fill text-center">
                             <strong id="Recom0">${dobles[0]}</strong>
@@ -277,17 +288,17 @@ function agregarTarjetaSL() {
 
 // Tests Tarjetas
 document.getElementById('simularAlerta')?.addEventListener('click', () => {
-  const alertaFalsa = {
-    tipo: 'SHORT',
-    tick: 'FAKEUSDT',
-    variacion: 6.66,
-    volumen: '123.45M',
-    precio_max: '0.01234',
-    precio_min: '0.00987',
-    balance: '100',
-    lastPrice: '0.01111'
-  };
-  crearTarjeta(alertaFalsa);
+    const alertaFalsa = {
+        tipo: 'SHORT',
+        tick: 'FAKEUSDT',
+        variacion: 6.66,
+        volumen: '123.45M',
+        precio_max: '0.01234',
+        precio_min: '0.00987',
+        balance: '100',
+        lastPrice: '0.01111'
+    };
+    crearTarjeta(alertaFalsa);
 });
 
 

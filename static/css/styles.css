@@ -53,3 +53,26 @@ body, html {
     align-items: center;
     white-space: normal;
 }
+
+#floatingTextarea2Disabled {
+    height: 200px; 
+    padding-top: 2rem;
+}
+
+.input-coin {
+    max-width: 7rem; 
+    font-weight: bold;
+}
+
+.scrollable-content {
+    overflow: visible;
+}
+
+.btn-recompras {
+    --bs-btn-padding-x: 1.75rem;
+    background-color: #8c68cd;
+}
+
+.bg-entry {
+  background-color: gainsboro;
+}
