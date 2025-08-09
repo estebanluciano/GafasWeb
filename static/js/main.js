@@ -178,8 +178,8 @@ function backgroundColorChange(element) {
 function agregarTarjetaRecompras() {
     const tickerInput = document.getElementById("Ticker");
     const lastPriceInput = document.getElementById("LastPrice");
-    const valueInput = document.getElementById("Value");
-    let dobles = agregarDobles(parseInt(valueInput.value));
+    const quantityInput = document.getElementById("Quantity");
+    let dobles = agregarDobles(parseInt(quantityInput.value));
     const tarjeta = document.createElement('div');
     tarjeta.className = 'col-md-12 mb-3 w-75'; // Usamos col-md-12 para que ocupe todo el ancho de la columna derecha
     tarjeta.innerHTML = `
