@@ -43,8 +43,10 @@ function copiarTick(headerElement) {
     const lastPrice = headerElement.dataset.lastprice;
     const tickerInput = document.getElementById("Ticker");
     const balanceInput = document.getElementById("Capital");
+    const operableInput = document.getElementById("CapitalOperable");
+    const valueInput = document.getElementById("EntryValue");
     const lastPriceInput = document.getElementById("LastPrice");
-    const valueInput = document.getElementById("Value");
+    const quantityInput = document.getElementById("Quantity");
     if (tickerInput) {
         tickerInput.value = tick.slice(0, -4); // Elimina el último "USDT" del ticker
         tickerInput.focus();
@@ -60,12 +62,14 @@ function copiarTick(headerElement) {
             });
     }
     if (balanceInput) {
-        balanceInput.value = balance;
+        balanceInput.value = parseFloat(balance).toFixed(4);
+        operableInput.value = (parseFloat(balance) / 2 ).toFixed(4); // Asignamos la mitad del balance al operable
+        valueInput.value = (parseFloat(balance) / 2 * 0.1).toFixed(2); // Asignamos el 10% del balance operable al valor de entrada
     }
-    if (valueInput) {
+    if (quantityInput) {
         // Del balance, calculamos cantidad de monedas de entrada del 1% a 10x
-        valueInput.value = Math.floor(parseFloat(balance) * 0.10 / lastPrice);
-        valueInput.focus();
+        quantityInput.value = Math.floor(parseFloat(balance) / 2 * 0.1 / lastPrice);
+        quantityInput.focus();
     }
     if (lastPriceInput) {
         lastPriceInput.value = lastPrice;   

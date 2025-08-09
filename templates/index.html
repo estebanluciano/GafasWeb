@@ -48,18 +48,23 @@
                     <h2 class="mb-4 fw-light">Calculadora de Recompras</h2>
                     <!-- Botón para agregar nuevas tarjetas -->
                     <div class="input-group mb-3">
+                        <span class="input-group-text">Capital Total💲</span>
+                        <input type="text" id="Capital" class="form-control input-coin" placeholder="" aria-label="Capital" disabled="disabled">
+                        <span class="input-group-text">Capital Operable💲</span>
+                        <input type="text" id="CapitalOperable" class="form-control input-coin" placeholder="" aria-label="Capital Operable" disabled="disabled">
+                        <span class="input-group-text">Valor Entrada💲</span>
+                        <input type="text" id="EntryValue" class="form-control input-coin" placeholder="" aria-label="Valor de Entrada" disabled="disabled">
+                    </div>
+                    <div class="input-group mb-4">
                         <span class="input-group-text">Coin <span class="text-success ms-2 fw-bolder">₿</span></span>
                         <input type="text" id="Ticker" class="form-control input-coin" placeholder="BTC" aria-label="Coin">
                         <span class="input-group-text">Price 💴</span>
                         <input type="text" id="LastPrice" class="form-control input-coin" placeholder=".." aria-label="Last Price" value="">
                         <span class="input-group-text">Quantity 🪙</span>
-                        <input type="text" id="Value" class="form-control input-coin" placeholder=".." aria-label="Value" value="10">
+                        <input type="text" id="Quantity" class="form-control input-coin" placeholder=".." aria-label="Quantity" value="10">
                         <button class="btn shadow-sm btn-recompras" onclick="agregarTarjetaRecompras()">Calcular</button>
                     </div>
-                    <div class="input-group mb-4">
-                        <span class="input-group-text">Capital Margin💲</span>
-                        <input type="text" id="Capital" class="form-control input-coin" placeholder="" aria-label="Capital" disabled="disabled">
-                    </div>
+
                     <hr>
                     
                     <!-- Contenedor para las tarjetas dinámicas -->

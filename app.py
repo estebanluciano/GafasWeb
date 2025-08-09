@@ -3,6 +3,7 @@ from flask_socketio import SocketIO
 from movement_alerts import obtener_datos
 from automatic_stop_loss import colocar_orden_SL
 import os
+import webbrowser
 # import threading
 
 app = Flask(__name__)
@@ -47,4 +48,5 @@ if __name__ == '__main__':
     # En lugar de crear tu propio threading.Thread, usá el helper de SocketIO para tareas en background, que se integra mejor con el loop:
     if os.environ.get("WERKZEUG_RUN_MAIN") == "true":
         socketio.start_background_task(emitir_alertas)
+    webbrowser.open('http://127.0.0.1:5000')
     socketio.run(app, debug=True)
