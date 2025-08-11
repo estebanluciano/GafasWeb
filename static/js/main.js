@@ -187,7 +187,7 @@ function agregarTarjetaRecompras() {
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <h5 class="card-title mb-0">Coin <strong>${tickerInput.value}</strong></h5>
-                    <button class="btn btn-sm btn-outline-danger" onclick="this.closest('.col-md-12').remove()">Eliminar</button>
+                    <button class="btn btn-sm btn-outline-danger" onclick="this.closest('.col-md-12').remove()"><strong>X</strong></button>
                 </div>
                 <ul class="px-5 list-group list-group-flush">
                     <li class="list-group-item d-flex align-items-center" onclick="backgroundColorChange(this)">

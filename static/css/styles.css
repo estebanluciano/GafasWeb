@@ -73,6 +73,10 @@ body, html {
     background-color: #8c68cd;
 }
 
+.btn-recompras:hover {
+    background-color: #5b3697;
+}
+
 .bg-entry {
   background-color: gainsboro;
 }
