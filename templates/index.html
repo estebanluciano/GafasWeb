@@ -11,10 +11,9 @@
     <link rel="manifest" href="/static/site.webmanifest" />
     <title>Dashboard de Trading</title>
     <!-- Usando Bootstrap para el layout de columnas -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../static/css/styles.css" rel="stylesheet">
-    <!-- Socket.IO -->
-    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
     <!-- Audios -->
     <audio id="soundlong" src="../static/sounds/pop.wav" preload="auto"></audio>
     <audio id="soundshort" src="../static/sounds/pop.mp3" preload="auto"></audio>
@@ -52,22 +51,45 @@
                 <div class="scrollable-content mb-4">
                     <h2 class="mb-4 fw-light">Calculadora de Recompras</h2>
                     <!-- Botón para agregar nuevas tarjetas -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text">Capital Total💲</span>
-                        <input type="text" id="Capital" class="form-control input-coin" placeholder="" aria-label="Capital" disabled="disabled">
+                    <div class="d-flex justify-content-around mb-3">
+                        <div>
+                            <span>Capital Total💲</span>
+                            <strong id="Capital" class="text-success"></strong>
+                        </div>
+                        <div>
+                            <span>Capital Operable💲</span>
+                            <strong id="CapitalOperable" class="text-primary"></strong>
+                        </div>
+                        <div>
+                            <span>Valor Entrada💲</span>
+                            <strong id="EntryValue" class="text-info"></strong>
+                        </div>
+                    </div>
+                    <!-- <div class="input-group mb-3">
+                        <span hidden="hidden" class="input-group-text">Capital Total💲</span>
+                        <input type="hidden" id="Capital" class="form-control input-coin" placeholder="" aria-label="Capital" disabled="disabled">
                         <span class="input-group-text">Capital Operable💲</span>
                         <input type="text" id="CapitalOperable" class="form-control input-coin" placeholder="" aria-label="Capital Operable" disabled="disabled">
                         <span class="input-group-text">Valor Entrada💲</span>
                         <input type="text" id="EntryValue" class="form-control input-coin" placeholder="" aria-label="Valor de Entrada" disabled="disabled">
-                    </div>
+                    </div> -->
                     <div class="input-group mb-4">
-                        <span class="input-group-text">Coin <span class="text-success ms-2 fw-bolder">₿</span></span>
-                        <input type="text" id="Ticker" class="form-control input-coin" placeholder="BTC" aria-label="Coin">
-                        <span class="input-group-text">Price 💴</span>
-                        <input type="text" id="LastPrice" class="form-control input-coin" placeholder=".." aria-label="Last Price" value="">
-                        <span class="input-group-text">Quantity 🪙</span>
-                        <input type="text" id="Quantity" class="form-control input-coin" placeholder=".." aria-label="Quantity" value="10">
-                        <button class="btn shadow-sm btn-recompras" onclick="agregarTarjetaRecompras()">Calcular</button>
+                        <span class="input-group-text shadow">
+                            <span class="label-text me-1">Coin</span>
+                            <i class="bi bi-currency-bitcoin text-success"></i>
+                        </span>
+                        <input type="text" id="Ticker" class="form-control input-coin shadow" placeholder="BTC" aria-label="Coin">
+                        <span class="input-group-text shadow">
+                            <span class="label-text me-2">Price</span>
+                            <i class="bi bi-currency-exchange text-warning"></i>
+                        </span>
+                        <input type="text" id="LastPrice" class="form-control input-coin shadow" placeholder=".." aria-label="Last Price" value="">
+                        <span class="input-group-text shadow">
+                            <span class="label-text me-2">Quantity</span>
+                            <i class="bi bi-box-arrow-in-down-right text-danger"></i>
+                        </span>
+                        <input type="text" id="Quantity" class="form-control input-coin shadow" placeholder=".." aria-label="Quantity" value="10">
+                        <button class="btn shadow btn-recompras" onclick="agregarTarjetaRecompras()">Calcular</button>
                     </div>
 
                     <hr>
@@ -90,7 +112,9 @@
     </div>
 
     <!-- Scripts -->
+    <!-- Socket.IO -->
     <script src="../static/js/main.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

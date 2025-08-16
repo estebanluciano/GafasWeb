@@ -35,6 +35,7 @@ body, html {
     background-color: var(--card-bg);
     color: var(--text-dark);
     border: none;
+    border-radius: 12px;
 }
 .btn-primary {
     background-color: var(--primary-accent);
@@ -54,15 +55,21 @@ body, html {
     white-space: normal;
 }
 
+.btn-sm {
+    border-radius: 9px;
+}
+
+.list-group-item {
+    border-radius: 9px !important
+}
+
 #floatingTextarea2Disabled {
     height: 200px; 
     padding-top: 2rem;
 }
 
 .input-coin {
-    max-width: 7rem; 
     font-weight: bold;
-    width: fit-content!important;
 }
 
 .scrollable-content {
@@ -80,4 +87,10 @@ body, html {
 
 .bg-entry {
   background-color: gainsboro;
+}
+
+@media (max-width: 1550px) {
+    .input-group-text .label-text {
+        display: none;
+    }
 }

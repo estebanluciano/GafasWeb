@@ -62,9 +62,9 @@ function copiarTick(headerElement) {
             });
     }
     if (balanceInput) {
-        balanceInput.value = parseFloat(balance).toFixed(4);
-        operableInput.value = (parseFloat(balance) / 2 ).toFixed(4); // Asignamos la mitad del balance al operable
-        valueInput.value = (parseFloat(balance) / 2 * 0.1).toFixed(2); // Asignamos el 10% del balance operable al valor de entrada
+        balanceInput.textContent = parseFloat(balance).toFixed(4);
+        operableInput.innerText = (parseFloat(balance) / 2 ).toFixed(4); // Asignamos la mitad del balance al operable
+        valueInput.innerText = (parseFloat(balance) / 2 * 0.1).toFixed(2); // Asignamos el 10% del balance operable al valor de entrada
     }
     if (quantityInput) {
         // Del balance, calculamos cantidad de monedas de entrada del 1% a 10x
@@ -167,9 +167,9 @@ const miArreglo = agregarDobles(5);
 function backgroundColorChange(element) {
     let elems = element.parentNode.querySelectorAll('.list-group-item');
     for (let i = 0; i < elems.length; i++) {
-        (elems[i].style.backgroundColor === 'lightslategray')? elems[i].style.backgroundColor = '': null;
+        (elems[i].style.backgroundColor === 'rgba(119, 136, 153, 0.7)')? elems[i].style.backgroundColor = '': null;
     };
-    (element.style.backgroundColor === 'gainsboro')? null: element.style.backgroundColor = 'lightslategray';
+    (element.style.backgroundColor === 'gainsboro')? null: element.style.backgroundColor = 'rgba(119, 136, 153, 0.7)';
 }
 
 
@@ -183,67 +183,67 @@ function agregarTarjetaRecompras() {
     const tarjeta = document.createElement('div');
     tarjeta.className = 'col-md-12 mb-3 w-75'; // Usamos col-md-12 para que ocupe todo el ancho de la columna derecha
     tarjeta.innerHTML = `
-        <div class="card shadow-sm">
+        <div class="card shadow">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="card-title mb-0">Coin <strong>${tickerInput.value}</strong></h5>
-                    <button class="btn btn-sm btn-outline-danger" onclick="this.closest('.col-md-12').remove()"><strong>X</strong></button>
+                    <h5 class="card-title ms-1">Coin <strong>${tickerInput.value}</strong></h5>
+                    <button class="btn btn-outline-danger rounded-circle p-2 lh-1" type="button" onclick="this.closest('.col-md-12').remove()"> <i class="bi bi-x-lg"></i> </button>
                 </div>
                 <ul class="px-5 list-group list-group-flush">
                     <li class="list-group-item d-flex align-items-center" onclick="backgroundColorChange(this)">
-                        <div class="text-start">Recom 6</div>
+                        <div class="text-start text-secondary"><i class="bi bi-dice-6-fill"></i></div>
                         <div class="flex-fill text-center">
-                            <strong id="Recom6" class="text-danger">${dobles[5]}</strong>
+                            <strong id="Recom6" class="text-danger-emphasis">${dobles[5]}</strong>
                         </div>
-                        <div id="Recom6usd" class="text-end">u$d ${(dobles[5] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                        <div id="Recom6usd" class="text-end"><i class="bi bi-currency-dollar"></i> ${(dobles[5] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
                     </li>
                     
                     <li class="list-group-item d-flex align-items-center" onclick="backgroundColorChange(this)">
-                        <div class="text-start">Recom 5</div>
+                        <div class="text-start text-secondary"><i class="bi bi-dice-5"></i></div>
                         <div class="flex-fill text-center">
-                            <strong id="Recom5" class="text-warning">${dobles[4]}</strong>
+                            <strong id="Recom5" class="text-danger">${dobles[4]}</strong>
                         </div>
-                        <div id="Recom5usd" class="text-end">u$d ${(dobles[4] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                        <div id="Recom5usd" class="text-end"><i class="bi bi-currency-dollar"></i> ${(dobles[4] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
                     </li>
 
                     <li class="list-group-item d-flex align-items-center" onclick="backgroundColorChange(this)">
-                        <div class="text-start">Recom 4</div>
+                        <div class="text-start text-secondary"><i class="bi bi-4-square-fill"></i></div>
                         <div class="flex-fill text-center">
                             <strong id="Recom4" class="text-warning">${dobles[3]}</strong>
                         </div>
-                        <div id="Recom4usd" class="text-end">u$d ${(dobles[3] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                        <div id="Recom4usd" class="text-end"><i class="bi bi-currency-dollar"></i> ${(dobles[3] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
                     </li>
 
                     <li class="list-group-item d-flex align-items-center" onclick="backgroundColorChange(this)">
-                        <div class="text-start">Recom 3</div>
+                        <div class="text-start text-secondary"><i class="bi bi-3-square"></i></div>
                         <div class="flex-fill text-center">
-                            <strong id="Recom3">${dobles[2]}</strong>
+                            <strong id="Recom3" class="text-warning">${dobles[2]}</strong>
                         </div>
-                        <div id="Recom3usd" class="text-end">u$d ${(dobles[2] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                        <div id="Recom3usd" class="text-end"><i class="bi bi-currency-dollar"></i> ${(dobles[2] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
                     </li>
 
                     <li class="list-group-item d-flex align-items-center" onclick="backgroundColorChange(this)">
-                        <div class="text-start">Recom 2</div>
+                        <div class="text-start text-secondary"><i class="bi bi-2-circle-fill"></i></div>
                         <div class="flex-fill text-center">
-                            <strong id="Recom2">${dobles[1]}</strong>
+                            <strong id="Recom2" class="text-success">${dobles[1]}</strong>
                         </div>
-                        <div id="Recom2usd" class="text-end">u$d ${(dobles[1] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                        <div id="Recom2usd" class="text-end"><i class="bi bi-currency-dollar"></i> ${(dobles[1] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
                     </li>
 
                     <li class="list-group-item d-flex align-items-center" onclick="backgroundColorChange(this)">
-                        <div class="text-start">Recom 1</div>
+                        <div class="text-start text-secondary"><i class="bi bi-1-circle"></i></div>
                         <div class="flex-fill text-center">
-                            <strong id="Recom1">${dobles[0]}</strong>
+                            <strong id="Recom1" class="text-success">${dobles[0]}</strong>
                         </div>
-                        <div id="Recom1usd" class="text-end">u$d ${(dobles[0] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                        <div id="Recom1usd" class="text-end"><i class="bi bi-currency-dollar"></i> ${(dobles[0] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
                     </li>
                     
                     <li class="list-group-item d-flex align-items-center bg-entry" onclick="backgroundColorChange(this)">
-                        <div class="text-start">Entrada</div>
+                        <div class="text-start text-secondary"><i class="bi bi-explicit"></i></div>
                         <div class="flex-fill text-center">
-                            <strong id="Recom0">${dobles[0]}</strong>
+                            <strong id="Recom0" class="text-secondary">${dobles[0]}</strong>
                         </div>
-                        <div id="Recom0usd" class="text-end">u$d ${(dobles[0] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
+                        <div id="Recom0usd" class="text-end"><i class="bi bi-currency-dollar"></i> ${(dobles[0] * parseFloat(lastPriceInput.value) / 10).toFixed(2)}</div>
                     </li>
                 </ul>
             </div>
@@ -259,7 +259,7 @@ function agregarTarjetaSL() {
     const tarjeta = document.createElement('div');
     tarjeta.className = 'col-md-12 mb-3'; // Usamos col-md-12 para que ocupe todo el ancho de la columna derecha
     tarjeta.innerHTML = `
-        <div class="card shadow-sm">
+        <div class="card shadow">
             <div class="card-body">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="card-title mb-0">Coin ${id}</h5>

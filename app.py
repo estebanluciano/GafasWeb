@@ -6,6 +6,23 @@ import os
 import webbrowser
 # import threading
 
+# Sincronizar hora con w32tm desde Python
+import subprocess
+
+def sync_windows_time():
+    try:
+        # Inicia el servicio de hora de Windows
+        subprocess.run("net start w32time", shell=True, check=False)
+
+        # Sincroniza con el servidor NTP configurado
+        subprocess.run("w32tm /resync", shell=True, check=True)
+        print("✅ Hora sincronizada con el servidor NTP")
+    except subprocess.CalledProcessError as e:
+        print("❌ Error al sincronizar hora:", e)
+
+sync_windows_time()
+
+
 app = Flask(__name__)
 socketio = SocketIO(app)
 
